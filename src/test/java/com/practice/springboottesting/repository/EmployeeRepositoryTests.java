@@ -4,6 +4,7 @@ import com.practice.springboottesting.model.Employee;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,14 +17,20 @@ public class EmployeeRepositoryTests {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Test
-    public void givenEmployeeObject_whenSave_thenReturnSavedEmployee() {
-        // Given
-        Employee employee = Employee.builder()
+    private Employee employee;
+
+    @BeforeEach
+    public void setup() {
+        employee = Employee.builder()
                 .firstName("Tom")
                 .lastName("lin")
                 .email("lin@gmail.com")
                 .build();
+    }
+
+    @Test
+    public void givenEmployeeObject_whenSave_thenReturnSavedEmployee() {
+        // Given an employee
 
         // When
         Employee savedEmployee = employeeRepository.save(employee);
@@ -61,13 +68,7 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenEmployeeObject_whenFindById_thenReturnEmployeeObject() {
-        // Given
-        Employee employee = Employee.builder()
-                .firstName("Tom")
-                .lastName("lin")
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
@@ -79,13 +80,7 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenEmployeeEmail_whenFindByEmail_thenReturnEmployeeObject() {
-        // Given
-        Employee employee = Employee.builder()
-                .firstName("Tom")
-                .lastName("lin")
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
@@ -97,13 +92,7 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenEmployeeObject_whenUpdateEmployee_thenReturnUpdatedEmployee() {
-        // Given
-        Employee employee = Employee.builder()
-                .firstName("Tom")
-                .lastName("lin")
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
@@ -122,13 +111,7 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenEmployeeObject_whenDeleteEmployeeById_thenRemoveEmployee() {
-        // Given
-        Employee employee = Employee.builder()
-                .firstName("Tom")
-                .lastName("lin")
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
@@ -141,19 +124,11 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenFirstNameAndLastName_whenFindBy_thenReturnEmployeeObject() {
-        // Given
-        String firstName = "Tom";
-        String lastName = "lin";
-        Employee employee = Employee.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
-        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastName(firstName, lastName);
+        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastName(employee.getFirstName(), employee.getLastName());
 
         // Then
         assertThat(retrievedEmployee).isNotNull();
@@ -161,19 +136,11 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenFirstNameAndLastName_whenFindByParams_thenReturnEmployeeObject() {
-        // Given
-        String firstName = "Tom";
-        String lastName = "lin";
-        Employee employee = Employee.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
-        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameParams(firstName, lastName);
+        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameParams(employee.getFirstName(), employee.getLastName());
 
         // Then
         assertThat(retrievedEmployee).isNotNull();
@@ -181,19 +148,11 @@ public class EmployeeRepositoryTests {
 
     @Test
     public void givenFirstNameAndLastName_whenFindBySql_thenReturnEmployeeObject() {
-        // Given
-        String firstName = "Tom";
-        String lastName = "lin";
-        Employee employee = Employee.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .email("lin@gmail.com")
-                .build();
-
+        // Given an employee
         employeeRepository.save(employee);
 
         // When
-        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameSql(firstName, lastName);
+        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameSql(employee.getFirstName(), employee.getLastName());
 
         // Then
         assertThat(retrievedEmployee).isNotNull();
@@ -202,18 +161,10 @@ public class EmployeeRepositoryTests {
     @Test
     public void givenFirstNameAndLastName_whenFindByParamsSql_thenReturnEmployeeObject() {
         // Given
-        String firstName = "Tom";
-        String lastName = "lin";
-        Employee employee = Employee.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .email("lin@gmail.com")
-                .build();
-
         employeeRepository.save(employee);
 
         // When
-        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameParamsSql(firstName, lastName);
+        Employee retrievedEmployee = employeeRepository.findByFirstNameAndLastNameParamsSql(employee.getFirstName(), employee.getLastName());
 
         // Then
         assertThat(retrievedEmployee).isNotNull();
