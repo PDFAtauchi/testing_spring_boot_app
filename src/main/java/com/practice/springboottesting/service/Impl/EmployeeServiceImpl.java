@@ -4,7 +4,6 @@ import com.practice.springboottesting.exception.ResourceNotFoundException;
 import com.practice.springboottesting.model.Employee;
 import com.practice.springboottesting.repository.EmployeeRepository;
 import com.practice.springboottesting.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
